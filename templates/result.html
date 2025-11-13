@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Loan Result{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow p-4 border-0 rounded-4">
+        <h2 class="text-center text-primary mb-3">{{ message }}</h2>
+        <h4 class="text-center text-muted mb-4">Status: {{ result }} ({{ chance }} Chance)</h4>
+
+        {% if eligible_banks %}
+            <h5 class="text-secondary mb-3">🏦 Eligible Banks:</h5>
+            <div class="row">
+                {% for loan in eligible_banks %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm rounded-4">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ loan.bank }}</h5>
+                                <p class="card-text">
+                                    <strong>Type:</strong> {{ loan.type }}<br>
+                                    <strong>Rate:</strong> {{ loan.rate }}<br>
+                                    <strong>Required Docs:</strong> {{ loan.docs }}
+                                </p>
+                                <button class="btn btn-outline-danger w-100 rounded-pill"
+                                    onclick="saveInterest('{{ loan.bank }}', '{{ loan.type }}', '{{ loan.rate }}', '{{ loan.docs }}')">
+                                    ❤️ Save to Interested
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-warning text-center mt-3">No eligible banks available.</div>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('interested') }}" class="btn btn-primary rounded-pill px-4">View My Interested Loans</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function saveInterest(bank, loanType, rate, docs) {
+    fetch('/add_interest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            bank: bank,
+            loan_type: loanType,
+            rate: rate,
+            docs: docs
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message || '✅ Added to Interested!');
+    })
+    .catch(err => {
+        alert('❌ Error saving loan.');
+        console.error(err);
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Home - LoanWisely{% endblock %}
+{% block content %}
+
+<!-- 🌟 Hero Section -->
+<section class="hero-section text-center text-white py-5" style="background: linear-gradient(90deg, #1363DF, #47B5FF);">
+  <div class="container py-5">
+    <h1 class="fw-bold display-5 mb-3">Find Your Loan Eligibility Instantly</h1>
+    <p class="lead mb-4">
+      Get personalized loan recommendations from multiple banks in seconds.
+    </p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a href="{{ url_for('eligibility_form') }}" class="btn btn-light btn-lg fw-semibold shadow-sm">
+        Check Eligibility Now <i class="bi bi-arrow-right-circle ms-1"></i>
+      </a>
+      <a href="#how-it-works" class="btn btn-outline-light btn-lg fw-semibold shadow-sm">
+        Learn More
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ⚙️ How It Works -->
+<section id="how-it-works" class="py-5 bg-light text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4">How It Works</h2>
+    <p class="text-muted mb-5">Three simple steps to find your perfect loan</p>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-4 h-100">
+          <div class="circle bg-primary text-white mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle" style="width:60px;height:60px;">
+            <strong>1</strong>
+          </div>
+          <h5 class="fw-bold">Fill the Form</h5>
+          <p class="text-muted">Enter your details, income, and loan requirements easily.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-4 h-100">
+          <div class="circle bg-success text-white mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle" style="width:60px;height:60px;">
+            <strong>2</strong>
+          </div>
+          <h5 class="fw-bold">Eligibility Check</h5>
+          <p class="text-muted">Our AI evaluates your details and checks your eligibility instantly.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-4 h-100">
+          <div class="circle bg-warning text-white mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle" style="width:60px;height:60px;">
+            <strong>3</strong>
+          </div>
+          <h5 class="fw-bold">Get Results</h5>
+          <p class="text-muted">View matching banks, loan types, and interest rates instantly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🚀 Call To Action -->
+<section class="cta-section text-center text-white py-5" style="background: linear-gradient(90deg, #1363DF, #47B5FF);">
+  <div class="container py-4">
+    <h2 class="fw-bold mb-3">Ready to Find Your Perfect Loan?</h2>
+    <p class="lead mb-4">
+      Join thousands of users who found the best loan options through AI-powered predictions.
+    </p>
+    <a href="{{ url_for('eligibility_form') }}" class="btn btn-light btn-lg fw-semibold shadow-sm">
+      Start Your Application <i class="bi bi-arrow-right-circle ms-1"></i>
+    </a>
+  </div>
+</section>
+
+{% endblock %}

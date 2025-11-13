@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - LoanWisely{% endblock %}
+{% block content %}
+
+<!-- Header -->
+<section class="py-5 bg-light text-center">
+  <div class="container">
+    <h1 class="fw-bold">Welcome, <span class="text-primary">{{ session.get('user', 'User') }}</span> 👋</h1>
+    <p class="text-muted">Here’s an overview of your loan activity</p>
+  </div>
+</section>
+
+<!-- Dashboard Content -->
+<section class="py-4">
+  <div class="container">
+
+    <!-- Row 1: Summary Cards -->
+    <div class="row g-4 mb-4">
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center p-3 h-100">
+          <i class="bi bi-check-circle-fill text-success fs-2 mb-2"></i>
+          <h6 class="fw-bold mb-1">Total Eligible Checks</h6>
+          <h4 class="fw-bold text-primary">{{ summary.eligible_count or 0 }}</h4>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center p-3 h-100">
+          <i class="bi bi-x-circle-fill text-danger fs-2 mb-2"></i>
+          <h6 class="fw-bold mb-1">Total Not Eligible</h6>
+          <h4 class="fw-bold text-primary">{{ summary.not_eligible_count or 0 }}</h4>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center p-3 h-100">
+          <i class="bi bi-heart-fill text-danger fs-2 mb-2"></i>
+          <h6 class="fw-bold mb-1">Loans Marked as Interested</h6>
+          <h4 class="fw-bold text-primary">{{ summary.interested_count or 0 }}</h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Recent Eligibility Checks -->
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-body">
+        <h5 class="fw-bold mb-3"><i class="bi bi-clipboard2-check text-primary me-2"></i> Recent Eligibility Checks</h5>
+        {% if recent_checks and recent_checks|length > 0 %}
+          <div class="table-responsive">
+            <table class="table table-striped align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Date</th>
+                  <th>Loan Type</th>
+                  <th>Status</th>
+                  <th>Eligible Banks</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for check in recent_checks %}
+                <tr>
+                  <td>{{ check.date }}</td>
+                  <td>{{ check.loan_type }}</td>
+                  <td>
+                    {% if check.result == 'Eligible' %}
+                      <span class="badge bg-success">Eligible</span>
+                    {% else %}
+                      <span class="badge bg-danger">Not Eligible</span>
+                    {% endif %}
+                  </td>
+                  <td>{{ check.banks }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <p class="text-muted">No recent eligibility checks found.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Row 3: Interested Loans -->
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="fw-bold mb-3"><i class="bi bi-heart-fill text-danger me-2"></i> My Interested Loans</h5>
+        {% if interested_loans and interested_loans|length > 0 %}
+          <div class="row g-3">
+            {% for loan in interested_loans %}
+            <div class="col-md-6">
+              <div class="card border-0 shadow-sm p-3 h-100">
+                <h6 class="fw-bold mb-1 text-success">{{ loan.bank }} - {{ loan.loan_type }}</h6>
+                <p class="mb-1 small text-muted">
+                  Interest Rate: <span class="fw-semibold text-success">{{ loan.interest_rate }}</span>
+                </p>
+                <p class="mb-0 small">
+                  <strong>Required Docs:</strong> {{ loan.documents }}
+                </p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="text-muted">You haven’t marked any loans as interested yet.</p>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

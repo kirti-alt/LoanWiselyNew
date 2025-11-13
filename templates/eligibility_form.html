@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}Check Eligibility - LoanWisely{% endblock %}
+{% block content %}
+
+<!-- Page Header -->
+<section class="py-5 bg-light text-center">
+  <div class="container">
+    <h1 class="fw-bold">Check Your Loan <span class="text-primary">Eligibility</span></h1>
+    <p class="text-muted mb-4">Fill in your details and get instant eligibility results</p>
+  </div>
+</section>
+
+<!-- Eligibility Form -->
+<section class="py-4">
+  <div class="container">
+    <div class="card shadow-sm border-0 mx-auto" style="max-width: 900px;">
+      <div class="card-body p-4">
+
+        <h5 class="fw-bold mb-2">
+          <i class="bi bi-clipboard2-check text-primary me-2"></i> Eligibility Form
+        </h5>
+        <p class="text-muted small mb-4">All fields are required. Hover over the <i class="bi bi-question-circle"></i> icon for more info.</p>
+
+        <form method="POST" action="{{ url_for('predict') }}">
+          
+          <!-- Personal Information -->
+          <h6 class="fw-bold text-primary mt-3 mb-2">Personal Information</h6>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Gender <i class="bi bi-question-circle small text-muted" title="Select your gender"></i></label>
+              <select class="form-select" name="gender" required>
+                <option value="">Select gender</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Age <i class="bi bi-question-circle small text-muted" title="Enter your age"></i></label>
+              <input type="number" name="age" class="form-control" placeholder="30" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Marital Status <i class="bi bi-question-circle small text-muted" title="Married or Unmarried"></i></label>
+              <select class="form-select" name="married" required>
+                <option value="">Select status</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Dependents <i class="bi bi-question-circle small text-muted" title="Number of dependents"></i></label>
+              <select class="form-select" name="dependents" required>
+                <option value="">Select</option>
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3+</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Education <i class="bi bi-question-circle small text-muted" title="Graduated or Not"></i></label>
+              <select class="form-select" name="education" required>
+                <option value="">Select</option>
+                <option>Graduate</option>
+                <option>Not Graduate</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Self Employed <i class="bi bi-question-circle small text-muted" title="Are you self-employed?"></i></label>
+              <select class="form-select" name="self_employed" required>
+                <option value="">Select</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <!-- Financial Information -->
+          <h6 class="fw-bold text-primary mb-2">Financial Information</h6>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Applicant Income (₹/month) <i class="bi bi-question-circle small text-muted" title="Enter your monthly income"></i></label>
+              <input type="number" name="applicant_income" class="form-control" placeholder="50000" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Coapplicant Income (₹/month) <i class="bi bi-question-circle small text-muted" title="Enter co-applicant income"></i></label>
+              <input type="number" name="coapplicant_income" class="form-control" placeholder="0" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">CIBIL Score <i class="bi bi-question-circle small text-muted" title="Enter your CIBIL score"></i></label>
+              <input type="number" name="credit_score" class="form-control" placeholder="750" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Property Area <i class="bi bi-question-circle small text-muted" title="Urban, Semiurban, or Rural area"></i></label>
+              <select class="form-select" name="property_area" required>
+                <option value="">Select area</option>
+                <option>Urban</option>
+                <option>Semiurban</option>
+                <option>Rural</option>
+              </select>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <!-- Loan Details -->
+          <h6 class="fw-bold text-primary mb-2">Loan Details</h6>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Loan Amount (₹) <i class="bi bi-question-circle small text-muted" title="Enter requested loan amount"></i></label>
+              <input type="number" name="loan_amount" class="form-control" placeholder="500000" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Loan Term (months) <i class="bi bi-question-circle small text-muted" title="Loan repayment term in months"></i></label>
+              <select class="form-select" name="loan_term" required>
+                <option value="">Select</option>
+                <option>120</option>
+                <option>180</option>
+                <option>240</option>
+                <option>300</option>
+                <option>360</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 mt-4 fw-semibold"
+                  style="background:linear-gradient(90deg,#1363DF,#00BFA6);border:none;">
+            Check Eligibility <i class="bi bi-clipboard2-check"></i>
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

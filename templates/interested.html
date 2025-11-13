@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}My Interested Loans{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow p-4 border-0 rounded-4">
+        <h2 class="text-center text-primary mb-4">❤️ My Interested Loans</h2>
+
+        {% if interested_loans %}
+            <div class="row">
+                {% for loan in interested_loans %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm rounded-4">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ loan[0] }}</h5>
+                                <p class="card-text">
+                                    <strong>Type:</strong> {{ loan[1] }}<br>
+                                    <strong>Rate:</strong> {{ loan[2] }}<br>
+                                    <strong>Docs:</strong> {{ loan[3] }}
+                                </p>
+                                <form action="/remove_interest" method="POST">
+                                    <input type="hidden" name="bank" value="{{ loan[0] }}">
+                                    <input type="hidden" name="loan_type" value="{{ loan[1] }}">
+                                    <button type="submit" class="btn btn-outline-danger w-100 rounded-pill">
+                                        ❌ Remove
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center mt-3">No loans added yet.</div>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary rounded-pill px-4">⬅ Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

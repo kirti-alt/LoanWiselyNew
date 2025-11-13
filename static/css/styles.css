@@ -1,0 +1,29 @@
+body {
+  background-color: #f8f9fb;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Navbar */
+.navbar-brand {
+  font-weight: 700;
+  color: #1363DF !important;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 0.6rem;
+}
+
+/* Cards hover */
+.card:hover {
+  transform: translateY(-3px);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Footer */
+footer {
+  background: #fff;
+  border-top: 1px solid #eee;
+  color: #666;
+  padding: 20px 0;
+}
